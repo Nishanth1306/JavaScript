@@ -8,11 +8,19 @@
 // console.log(add())
 
 
-let a = 5
-//let b = 5
+// let a = 5
+// function add(b){
+//     return a + b
+// }
 
-function add(b){
-    return a + b
+// console.log(add(5))
+
+
+let student = {
+    name: "Nishanth",
+    age: 25,
+
+    
 }
 
-console.log(add())
+console.log(student.age);

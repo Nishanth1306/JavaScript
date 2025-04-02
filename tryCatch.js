@@ -1,16 +1,13 @@
-// try{
-//     let  a = 2;
-//     let  b = 4;
-//     greet();
-// }
-// catch(error){
-//     console.log(error.name);
-//     console.log(error.log);
-// }
-// finally{
-//     console.log("The Task is Completed");
-// }
+let n  = 89;
 
+let sum = 0;
+let num = n;
 
+while(num > 0){
+    sum += num%10;
+    console.log(sum);
+    num/=10;
+    console.log(num);
+}
 
-console.log(eval("22+3*7/10"))
+console.log(sum);

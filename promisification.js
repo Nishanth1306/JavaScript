@@ -1,20 +1,13 @@
-
-
-// let p = new Promise(greet =() => {
-//     console.log("Hii Good Morning");
-// });
-// console.log(p);
-let greet = () =>{
-    return new Promise ((resolve, reject)=> {
-        console.log("Hii Good Morning");
-        reject();
-        
+let greet = () => {
+    return new Promise((resolve, reject)=>{
+        setTimeout(() => {
+            resolve("Success");
+        }, 3000);
     })
 }
-
-greet().then(()=>{
-    console.log("resolved");
+greet().then((message)=>{
+    console.log(`${message}`);
 })
-.catch(()=>{
-    console.error("Error");
+.catch((message)=>{
+    console.log(`${message}`);
 })

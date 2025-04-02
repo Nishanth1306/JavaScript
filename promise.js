@@ -18,3 +18,6 @@ promise.then((message) => {
     console.log(`This is ${message}`);
 })
 
+
+
+console.log("s");

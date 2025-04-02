@@ -5,7 +5,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-function applyOperator(a, b, operator) {
+function Operator(a, b, operator) {
   switch (operator) {
     case '+': 
     return a + b;
@@ -36,15 +36,15 @@ function applyOperator(a, b, operator) {
        return Math.sqrt(b); 
     case 'exp':
        return Math.exp(b); 
-
+       
 
     default: throw new Error(`Unknown operator ${operator}`);
   }
 }
 
 function calculateexpression(input) {
-  let values = [];
-  let ops = [];
+  let digit = [];
+  let symbol = [];
   let i = 0;
   while (i < input.length) {
     let char = input[i];
@@ -58,7 +58,7 @@ function calculateexpression(input) {
       while (i < input.length && (/\d/.test(input[i]) || input[i] === '.')) {
         num += input[i++];
       }
-      values.push(parseFloat(num));
+      digit.push(parseFloat(num));
       continue;
     }
 
@@ -69,7 +69,7 @@ function calculateexpression(input) {
         func += input[i++];
       }
       if (['sin', 'cos', 'tan','log', 'ln', 'sqrt', 'exp'].includes(func)) {
-        ops.push(func);
+        symbol.push(func);
       } else {
         throw new Error(`Unknown function ${func}`);
       }
@@ -78,39 +78,39 @@ function calculateexpression(input) {
 
 
     if (char === '(') {
-      ops.push(char);
+      symbol.push(char);
     } else if (char === ')') {
-      while (ops.length > 0 && ops[ops.length - 1] !== '(') {
-        let operator = ops.pop();
-        let b = values.pop();
-        let a = values.pop();
-        values.push(applyOperator(a, b, operator));
+      while (symbol.length > 0 && symbol[symbol.length - 1] !== '(') {
+        let operator = symbol.pop();
+        let b = digit.pop();
+        let a = digit.pop();
+        digit.push(Operator(a, b, operator));
       }
-      ops.pop(); 
+      symbol.pop(); 
     }
 
     else if (['+', '-', '*', '/', '^'].includes(char)) {
-      while (ops.length > 0 && getPrecedence(ops[ops.length - 1]) >= getPrecedence(char)) {
-        let operator = ops.pop();
-        let b = values.pop();
-        let a = values.pop();
-        values.push(applyOperator(a, b, operator));
+      while (symbol.length > 0 && getPrecedence(symbol[symbol.length - 1]) >= getPrecedence(char)) {
+        let operator = symbol.pop();
+        let b = digit.pop();
+        let a = digit.pop();
+        digit.push(Operator(a, b, operator));
       }
-      ops.push(char);
+      symbol.push(char);
     }
 
     i++;
   }
 
 
-  while (ops.length > 0) {
-    let operator = ops.pop();
-    let b = values.pop();
-    let a = values.pop();
-    values.push(applyOperator(a, b, operator));
+  while (symbol.length > 0) {
+    let operator = symbol.pop();
+    let b = digit.pop();
+    let a = digit.pop();
+    digit.push(Operator(a, b, operator));
   }
 
-  return values.pop();
+  return digit.pop();
 }
 
 function getPrecedence(op) {

@@ -11,6 +11,6 @@ console.log(gen.next());
 
 
 
-// for(let value of gen){
-//     console.log(value);
-// }
+for(let value of gen){
+    console.log(value);
+}
